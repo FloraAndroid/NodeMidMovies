@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body style="text-align: center;">
+    <h3>Welcome To Search </h3><br><br>
+
+    <ul>
+        <% movies.forEach(mov=>{%>
+            <li>
+                <%= mov.name %>
+            </li>
+
+            <li>
+                <img style="width: 40px; height: 40px;" src="<%= mov.image %>">
+            </li>
+            <% }) %>
+    </ul>
+
+
+
+
+</body>
+
+</html>

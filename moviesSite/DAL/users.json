@@ -1,0 +1,44 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "userName": "florandroid1",
+            "password": "1234",
+            "createdDate": "05.05.25",
+            "numOfTrans": "55",
+            "admin": true
+        },
+        {
+            "id": 3,
+            "userName": "dudu",
+            "password": "mumu",
+            "createdDate": "toto",
+            "numOfTrans": "keke",
+            "admin": "false"
+        },
+        {
+            "id": 4,
+            "userName": "fafa",
+            "password": "gaga",
+            "createdDate": "gsgs",
+            "numOfTrans": "aaaaaa",
+            "admin": "false"
+        },
+        {
+            "id": 5,
+            "userName": ";;;;;;;;;;;;;;",
+            "password": "dfgffffff",
+            "createdDate": "ggghj",
+            "numOfTrans": "jjjjjjj",
+            "admin": "false"
+        },
+        {
+            "id": 6,
+            "userName": "jjjjjjj",
+            "password": "ssssss",
+            "createdDate": "jjjjjjj",
+            "numOfTrans": "rrrrr",
+            "admin": "false"
+        }
+    ]
+}

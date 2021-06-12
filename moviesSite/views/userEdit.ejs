@@ -1,0 +1,52 @@
+<html>
+
+<head>
+
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <h3>
+        <%= data.nameOfAction %> user
+    </h3><br><br>
+
+
+    <form style="width: 80%; align-items: center;" action="/users/<%=data.nameOfAction%>/save/<%=data.user.id%>"
+        method="POST">
+        <label>Fill In</label> <br><br>
+        <div>
+            <label>User Name : </label> <br>
+            <input type="text" name="uName" value="<%= data.user.userName ? data.user.userName : '' %>"
+                onfocus="this.value=''" />
+        </div>
+        <div>
+            <label>Password: </label><br>
+            <input type="text" name="pwd" value="<%= data.user.password ? data.user.password : '' %>"
+                onfocus="this.value=''" />
+        </div>
+        <div>
+            <label>Created Date : </label><br>
+            <input type="text" name="date" value="<%= data.user.createdDate ? data.user.createdDate : '' %>" </div>
+            <div>
+                <label>Num Of Transactions : </label> <br>
+                <input type="text" name="trans" value="<%= data.user.numOfTrans ? data.user.numOfTrans : '' %>"
+                    onfocus="this.value=''" />
+            </div>
+
+            <div>
+                <label style="width: auto;">Admin : </label>
+                <input style="width: auto;margin-bottom: 0px;" type="checkbox" name="admin" />
+            </div>
+            <div>
+                <input class="inputSmall" type="submit" value="<%= data.nameOfAction %> user">
+            </div>
+
+
+
+    </form>
+
+
+</body>
+
+</html>

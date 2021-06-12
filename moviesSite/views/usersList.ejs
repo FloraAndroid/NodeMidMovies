@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <h3 > Users List </h3><br>
+    <div>
+        <form>
+    <ul>
+        <% users.forEach(user=>{ %>
+            <li>
+                
+                <%= user.userName %> <a href="/users/update/<%= user.id %>">update </a> <a href="/users/delete/<%= user.id %>">delete </a>
+                <!-- <input class="inputSmall" type="button" value="update" name="edit">
+                    </button> <input class="inputSmall" type="button" value="delete" name="edit"> -->
+            </li>
+            <% }) %>
+    </ul>
+    </form>
+ <!--must add general link for each butoon to make it not duplicated code-->
+    <br> <br>
+
+    <a href="/users/Add/">Add New User </a>
+    </div>
+
+
+
+</body>
+
+</html>
