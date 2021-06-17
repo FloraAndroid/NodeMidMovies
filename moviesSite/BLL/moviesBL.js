@@ -12,25 +12,40 @@ exports.getAllMovies = async () => {
     });
     jsonDal.getNewMovies().then(data => {
         allmovies.push(data)
-        console.log("BL data from json",data)
+        console.log("BL data from json", data)
         return allmovies;
     }).catch((err) => {
-        console.log("BL error",err)
- 
+        console.log("BL error", err)
+
         return allmovies;
     })
 }
 
-exports.addMovie = (movie) => {
-    let moviesJson=[]
-    jsonDal.getNewMovies().then(data => {
-        moviesJson=data
-        moviesJson.push(movie)
-       
-    }).catch((err) => {
-        moviesJson.push(movie)
+exports.addMovie = async (obj) => {
+    let moviesJson = []
+    let data = await jsonDal.getNewMovies();
+    moviesJson = data
+
+    moviesJson.push({
+        "id": 99, "nameM": obj.nameM, "language": obj.language,
+        "generes": obj.genres
     })
+    let result = await jsonDal.updateMoviesFile(moviesJson);
+    return result;
+
+    // try {
+    //     console.log(result);
+    //     return result;
+
+    // }
+    // catch (err) {
+    //     console.log(err);
+    //     return err;
+
+    // }
 }
+
+
 
 exports.searchMovie = (query) => {
 

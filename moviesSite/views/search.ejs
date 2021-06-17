@@ -7,15 +7,15 @@
 
 <body style="text-align: center;">
     <h3>Welcome To Search </h3><br><br>
-
     <ul>
 
 
         <% movies.forEach(mov=>{%>
             <li>
-                <%= mov.name %> Hello
+                <%= mov.name? mov.name: '' %> Hello
             </li>
 
+            
             <li>
                 <img style="width: 40px; height: 40px;" src="<%= mov.image %>">
             </li>

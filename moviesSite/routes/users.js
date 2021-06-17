@@ -3,9 +3,15 @@ var router = express.Router();
 const usersBL = require('../BLL/usersBL');
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
+  console.log("authentications print in users"+ req.session.authenticated)
+  if (req.session.authenticated) {
+
   let users = await usersBL.getAllUsers();
 
   res.render('usersList', { users });
+  }else{
+    res.redirect("/")
+  }
 
   // res.send('respond with a resource');
 });
@@ -16,8 +22,9 @@ router.get('/', async function (req, res, next) {
 router.get('/:nameOfAction/:id?', async function (req, res, next) {
   let nameOfAction = req.params.nameOfAction
   let user = await usersBL.getUserById(req.params.id)
-  console.log("user :" + user.userName)
+  //console.log("user :" + user?.userName?user.userName:'')
   res.render('userEdit', { data: { "nameOfAction": req.params.nameOfAction, "user": user } });
+  
 });
 
 
@@ -36,7 +43,6 @@ router.post('/:nameOfAction/save/:id?', async function (req, res, next) {
   }
 
   if (nameOfAction == "delete") {
-
     let result = await usersBL.deleteUser(req.params.id)
     console.log(result)
   }

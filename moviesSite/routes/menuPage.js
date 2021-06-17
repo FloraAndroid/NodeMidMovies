@@ -13,10 +13,8 @@ router.get('/', function (req, res, next) {
 });
 router.get('/editUsers', function (req, res, next) {
   if (req.session.authenticated) {
-
     res.redirect('/users')
     // res.render('editUsers', {});
-
   }
   else {
     res.redirect("/")
@@ -26,6 +24,7 @@ router.get('/editUsers', function (req, res, next) {
 
 router.get('/addMovies', function (req, res, next) {
   if (req.session.authenticated) {
+    //add the last id to create id +1
     res.render('addMovie', {});
   }
   else {
@@ -34,10 +33,19 @@ router.get('/addMovies', function (req, res, next) {
 });
 
 
-router.get('/addMovies/add', function (req, res, next) {
+router.post('/addMovies/add', async function (req, res, next) {
   if (req.session.authenticated) {
-    //if the saving is going well
-    res.render('menu', {});
+
+    console.log("add Name movie : " + req.body.nameM)
+    try {
+      let result = await moviesBL.addMovie(req.body)
+      console.log("result from controller " + result)
+      res.redirect("/menu")
+    }
+    catch (err) { 
+      console.log("err from controller " + err)
+      res.render('addMovie', {err})
+    }
   }
   else {
     res.redirect("/")
@@ -54,8 +62,6 @@ router.get('/search', async function (req, res, next) {
     catch (err) {
       console.log("error with movies :" + err);
       res.redirect("/menu")
-
-      // res.render('search', {});
     }
   }
   else {

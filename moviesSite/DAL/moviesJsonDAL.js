@@ -18,9 +18,9 @@ const getNewMovies = function () {
 }
 
 
-const addNewMovie = function (movies) {
-    return new PromiseRejectionEvent((resolve, reject) => {
-        jFile.writeFile('__dirName' + '/newMovies.json', movies, function (err) {
+const updateMoviesFile = function (movies) {
+    return new Promise((resolve, reject) => {
+        jFile.writeFile(__dirname + "/newMovies.json", movies, function (err) {
             if (err) {
                 reject(err)
             }
@@ -30,4 +30,4 @@ const addNewMovie = function (movies) {
         })
     })
 }
-module.exports = { getNewMovies, addNewMovie }
+module.exports = { getNewMovies, updateMoviesFile }

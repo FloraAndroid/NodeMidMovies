@@ -35,7 +35,7 @@ exports.addUSer = async (obj) => {
     let resp = await usersDAL.getUsers();
     let users = resp.users;
     let lastUser = users[users.length - 1]
-    console.log(user);
+    console.log(lastUser);
     let id = lastUser.id + 1
     let admin = "false"
     if (obj.admin) {
@@ -112,19 +112,6 @@ exports.isUserExist = (async (uName, pwd) => {
     return result
 
 })
-
-
-// return new Promise((resolve,reject)=>{
-//     usersDAL.getUsers().then(data=>{
-
-
-//     }).catch((error)=>{
-
-//         re
-//         reject(err)
-//     })
-// });
-
 
 
 
