@@ -3,9 +3,15 @@ var router = express.Router();
 
 const moviesBL = require('../BLL/moviesBL');
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
   if (req.session.authenticated) {
-    res.render('menuPage', {});
+    try {
+      let movies = await moviesBL.getRestMovies()
+      res.render('menuPage', {});
+    } catch (err) {
+      res.render('menuPage', {});
+
+    }
   }
   else {
     res.redirect("/")
@@ -42,9 +48,9 @@ router.post('/addMovies/add', async function (req, res, next) {
       console.log("result from controller " + result)
       res.redirect("/menu")
     }
-    catch (err) { 
+    catch (err) {
       console.log("err from controller " + err)
-      res.render('addMovie', {err})
+      res.render('addMovie', { err })
     }
   }
   else {

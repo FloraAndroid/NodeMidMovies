@@ -10,15 +10,17 @@ const getNewMovies = function () {
             }
             else {
 
-                console.log("DAL JSON DATA " + data.movies)
-                resolve(data.movies)
+                console.log("DAL JSON DATA " + data)
+                resolve(data)
             }
         });
     });
 }
 
 
-const updateMoviesFile = function (movies) {
+const updateMoviesFile = function (obj) {
+    let movies = { "movies": obj }
+
     return new Promise((resolve, reject) => {
         jFile.writeFile(__dirname + "/newMovies.json", movies, function (err) {
             if (err) {
