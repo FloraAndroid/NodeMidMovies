@@ -5,24 +5,38 @@
 
 </head>
 
-<body style="text-align: center;">
+<body>
     <h3>Welcome To Search </h3><br><br>
-    <ul>
 
+    <div>
+        <table>
+            <% movies.forEach(mov=>{%>
+                <tr>
+                    <td>
+                        <img style="width: 40px; height: 40px;" src="<%= mov?.image? mov.image: '' %>">
 
-        <% movies.forEach(mov=>{%>
-            <li>
-                <%= mov.name? mov.name: '' %> Hello
-            </li>
+                    </td>
+                    <td>
 
-            
-            <li>
-                <img style="width: 40px; height: 40px;" src="<%= mov?.image? mov.image: '' %>">
-            </li>
-            <% }) %>
-    </ul>
+                        <a class="linkBlack" href="/menu/searchMovies/search/<%= mov.id %>/">
+                            <%= mov.name? mov.name: '' %>
+                        </a>
 
+                    </td>
+                    <td>
+                        <ul>
+                            <% mov.genres.forEach(gen=>{ %>
+                                <li>
+                                    <%= gen %>
+                                </li>
+                                <% }) %>
+                        </ul>
+                    </td>
+                <tr>
 
+                    <% }) %>
+        </table>
+    </div>
 
 
 </body>

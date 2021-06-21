@@ -71,7 +71,11 @@ router.post('/searchMovies/search',async  function (req, res, next) {
     }
   
 });
+router.get('/searchMovies/search/:id/',  function (req, res, next) {
+  console.log("Search Movies Params : " , req.params.id)
+  
 
+});
 router.get('/searchMovies', async function (req, res, next) {
   if (req.session.authenticated) {
       res.render('searchInput', { });

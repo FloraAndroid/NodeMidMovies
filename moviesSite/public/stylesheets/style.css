@@ -4,6 +4,16 @@ body {
   background-color: burlywood;
 }
 
+table{
+  padding: 2px;
+  border: 1.5px;
+  border-collapse: collapse;
+  border-style: solid;
+}
+td{
+  padding: 2px;
+  border-style: dotted;
+}
 a {
   color: #00B7FF;
 }
@@ -39,7 +49,9 @@ select{
   width: 10%;
   margin-bottom: 5px;
 }
-
+.linkBlack{
+  color: black;
+}
 h3{
   width: 90%;
   text-align: center;
