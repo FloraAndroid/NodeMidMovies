@@ -14,22 +14,32 @@
 
     <form style="width: 80%; align-items: center;" action="/users/<%=data.nameOfAction%>/save/<%= data?.user?.id ? data.user.id: ''%>"
         method="POST">
-        <label>Fill In</label> <br><br>
+        <label>Search Parameters</label> <br><br>
         <div>
-            <label>User Name : </label> 
-            <input type="text" name="uName" value="<%= data?.user?.userName ? data.user.userName : '' %>"
+            <label>Name Or Partial: </label> <br>
+            <input type="text" name="nameM" value="<%= data?.user?.userName ? data.user.userName : '' %>"
                 onfocus="this.value=''" />
         </div>
         <div>
-            <label>Password: </label>
+            <label>Languages</label>
+         <select form="myGeeks" id="myCourses" autofocus>
+            <option value="C++">c++</option>
+            <option value="Placement">Placement</option>
+            <option value="Java">Java</option>
+            <option value="Python">Python</option>
+        </select>>
+
+        </div>
+        <div>
+            <label>Password: </label><br>
             <input type="text" name="pwd" value="<%= data?.user?.password ? data.user.password : '' %>"
                 onfocus="this.value=''" />
         </div>
         <div>
-            <label>Created Date : </label>
+            <label>Created Date : </label><br>
             <input type="text" name="date" value="<%= data?.user?.createdDate ? data.user.createdDate : '' %>" </div>
             <div>
-                <label>Num Of Transactions : </label> 
+                <label>Num Of Transactions : </label> <br>
                 <input type="text" name="trans" value="<%= data?.user?.numOfTrans ? data.user.numOfTrans : '' %>"
                     onfocus="this.value=''" />
             </div>

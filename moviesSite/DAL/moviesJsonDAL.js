@@ -10,7 +10,7 @@ const getNewMovies = function () {
             }
             else {
 
-                console.log("DAL JSON DATA " + data)
+                console.log("DAL JSON DATA " , data)
                 resolve(data)
             }
         });

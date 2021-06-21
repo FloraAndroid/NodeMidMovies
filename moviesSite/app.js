@@ -12,7 +12,7 @@ var loginRouter=require('./routes/login');
 var menuRouter=require('./routes/menuPage');
 
 var app = express();
-app.use(session({secret:'My secret',resave: true}));
+app.use(session({secret:'My secret'}));
 app.use(express.static(__dirname + '/public'));
 
 // view engine setup

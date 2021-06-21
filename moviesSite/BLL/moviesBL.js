@@ -1,34 +1,49 @@
 const restDal = require('../DAL/moviesRestDAL');
 const jsonDal = require('../DAL/moviesJsonDAL');
+const { all, get } = require('../app');
 
 let moviesFromRest = null
 exports.getRestMovies = async () => {
     let resp = await restDal.getMovies();
-    moviesFromRest = resp.data;
+    // moviesFromRest = resp.data;
+    moviesFromRest = resp.data.map(x => {
+        return {
+            "id": x.id, "name": x.name,
+            "language": x.language, "genres": x.genres,
+            "image": x.image.medium
+        }
+    });
     return moviesFromRest;
 }
 exports.
     getAllMovies = async () => {
         if (moviesFromRest == null) {
             let resp = await restDal.getMovies();
-            moviesFromRest = resp.data
+            moviesFromRest = resp.data.map(x => {
+                return {
+                    "id": x.id, "name": x.name,
+                    "language": x.language, "genres": x.genres,
+                    "image": x.image.medium
+                }
+            });
         }
-        let allmovies = moviesFromRest.map(x => {
-            return {
-                "id": x.id, "name": x.name,
-                "language": x.language, "genres": x.genres,
-                "image": x.image.medium
-            }
-        });
-        jsonDal.getNewMovies().then(data => {
-            allmovies.push(data)
-            console.log("BL data from json", data)
-            return allmovies;
-        }).catch((err) => {
-            console.log("BL error", err)
+        let allmovies = moviesFromRest;
+        console.log("movies BL all movies rest", allmovies)
+        let moviesFromJson = await jsonDal.getNewMovies();
 
-            return allmovies;
-        })
+        allmovies.push(moviesFromJson.movies)
+        return allmovies;
+        // jsonDal.getNewMovies().then(data => {
+        //     console.log("BL movies from json", data.movies)
+
+        //     allmovies.push(data.movies)
+
+        //     return allmovies;
+        // }).catch((err) => {
+        //     console.log("BL error", err)
+
+        //     return allmovies;
+        // })
     }
 
 exports.addMovie = async (obj) => {
@@ -36,7 +51,13 @@ exports.addMovie = async (obj) => {
 
     if (moviesFromRest == null) {
         let resp = await restDal.getMovies();
-        moviesFromRest = resp.data
+        moviesFromRest = resp.data.map(x => {
+            return {
+                "id": x.id, "name": x.name,
+                "language": x.language, "genres": x.genres,
+                "image": x.image.medium
+            }
+        });
     }
     let moviesRest = moviesFromRest
     let moviesJson = dataJson.movies
@@ -52,8 +73,8 @@ exports.addMovie = async (obj) => {
     let genres = obj.genres.split(",")
     console.log(JSON.stringify(genres))
     moviesJson.push({
-        "id": id, "nameM": obj.nameM, "language": obj.language,
-        "generes": genres
+        "id": id, "name": obj.nameM, "image": "", "language": obj.language,
+        "genres": genres
     })
     let result = await jsonDal.updateMoviesFile(moviesJson);
     return result;
@@ -62,6 +83,13 @@ exports.addMovie = async (obj) => {
 
 
 
-exports.searchMovie = (querySt) => {
+exports.searchMovie = async (querySt) => {
+    let allmovies = await this.getAllMovies()
+    let searchedMovies =allmovies.filter(x=> 
+        x?.name?.toLowerCase().includes("Under".toLowerCase()))    
+
+
+    console.log("searchedMovie", searchedMovies);
+    return searched;
 
 }

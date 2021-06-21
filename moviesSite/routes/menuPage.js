@@ -61,8 +61,9 @@ router.post('/addMovies/add', async function (req, res, next) {
 router.get('/search', async function (req, res, next) {
   if (req.session.authenticated) {
     try {
-      let movies = await moviesBL.getAllMovies()
-      console.log("Movies : " + movies);
+      let movies=await moviesBL.searchMovie("Agents");
+      //let movies = await moviesBL.getAllMovies() 
+      console.log("Movies ",  movies);
       res.render('search', { movies });
     }
     catch (err) {
