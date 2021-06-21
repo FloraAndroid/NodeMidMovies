@@ -17,7 +17,7 @@
 
             
             <li>
-                <img style="width: 40px; height: 40px;" src="<%= mov.image %>">
+                <img style="width: 40px; height: 40px;" src="<%= mov?.image? mov.image: '' %>">
             </li>
             <% }) %>
     </ul>

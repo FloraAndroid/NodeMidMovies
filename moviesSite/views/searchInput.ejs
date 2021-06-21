@@ -1,58 +1,56 @@
 <html>
 
 <head>
-
     <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
-
 </head>
 
 <body>
     <h3>
-        <%= data.nameOfAction %> user
+        Search Movies
     </h3><br><br>
 
 
-    <form style="width: 80%; align-items: center;" action="/users/<%=data.nameOfAction%>/save/<%= data?.user?.id ? data.user.id: ''%>"
-        method="POST">
+    <div>
+        <a href="/menu/">Back To Menu</a>
+    </div>
+
+    <form style="width: 80%; align-items: center;" action="/menu/searchMovies/search/" method="POST">
         <label>Search Parameters</label> <br><br>
         <div>
-            <label>Name Or Partial: </label> <br>
-            <input type="text" name="nameM" value="<%= data?.user?.userName ? data.user.userName : '' %>"
-                onfocus="this.value=''" />
+            <label>Name Or Partial: </label><br>
+            <input type="text" name="nameM" />
         </div>
+
         <div>
-            <label>Languages</label>
-         <select form="myGeeks" id="myCourses" autofocus>
-            <option value="C++">c++</option>
-            <option value="Placement">Placement</option>
-            <option value="Java">Java</option>
-            <option value="Python">Python</option>
-        </select>>
+            <label>Language : </label><br>
+            <select name="languageM">
+                <option value="en">English</option>
+                <option value="he">Hebrew</option>
+                <option value="Span">Spanish</option>
+                <option value="Jap">Japanese</option>
+            </select>
+        </div>
+
+
+        <div>
+            <label>Genre:</label><br>
+            <select name="genreM">
+                <option value="drama">Drama</option>
+                <option value="crime">Crime</option>
+                <option value="thriller">Thriller</option>
+                <option value="romance">Romance</option>
+                <option value="action">Action</option>
+                <option value="music">Music</option>
+                <option value="science">Science-Fiction</option>
+                <option value="horror">Horror</option>
+
+            </select>
 
         </div>
+
         <div>
-            <label>Password: </label><br>
-            <input type="text" name="pwd" value="<%= data?.user?.password ? data.user.password : '' %>"
-                onfocus="this.value=''" />
+            <input class="inputSmall" type="submit" value="Search">
         </div>
-        <div>
-            <label>Created Date : </label><br>
-            <input type="text" name="date" value="<%= data?.user?.createdDate ? data.user.createdDate : '' %>" </div>
-            <div>
-                <label>Num Of Transactions : </label> <br>
-                <input type="text" name="trans" value="<%= data?.user?.numOfTrans ? data.user.numOfTrans : '' %>"
-                    onfocus="this.value=''" />
-            </div>
-
-            <div>
-                <label style="width: auto;">Admin : </label>
-                <input style="width: auto;margin-bottom: 0px;" type="checkbox" name="admin" />
-            </div>
-            <div>
-                <input class="inputSmall" type="submit" value="<%= data.nameOfAction %> user">
-            </div>
-
-
 
     </form>
 

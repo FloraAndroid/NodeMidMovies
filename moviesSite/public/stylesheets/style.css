@@ -18,10 +18,17 @@ label {
   display: inline-block;
   width: 150px;
   text-align: left;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 
 }
 input{
+  display: inline-block;
+  width: 60%;
+  margin-bottom: 5px;
+
+}
+
+select{
   display: inline-block;
   width: 60%;
   margin-bottom: 5px;

@@ -42,7 +42,7 @@ router.get('/addMovies', function (req, res, next) {
 router.post('/addMovies/add', async function (req, res, next) {
   if (req.session.authenticated) {
 
-    console.log("add Name movie : " + req.body.nameM)
+    console.log("add Name movie : " , req.body.nameM)
     try {
       let result = await moviesBL.addMovie(req.body)
       console.log("result from controller " + result)
@@ -58,18 +58,23 @@ router.post('/addMovies/add', async function (req, res, next) {
   }
 });
 
-router.get('/search', async function (req, res, next) {
-  if (req.session.authenticated) {
+router.post('/searchMovies/search',async  function (req, res, next) {
+    console.log("Search Movies Params : " , req.body)
     try {
-      let movies=await moviesBL.searchMovie("Agents");
-      //let movies = await moviesBL.getAllMovies() 
-      console.log("Movies ",  movies);
-      res.render('search', { movies });
+      let movies=await moviesBL.searchMovie(req.body);
+     // console.log("Movies ",  movies);
+      res.render('searchResult', { movies });
     }
     catch (err) {
       console.log("error with movies :" + err);
       res.redirect("/menu")
     }
+  
+});
+
+router.get('/searchMovies', async function (req, res, next) {
+  if (req.session.authenticated) {
+      res.render('searchInput', { });
   }
   else {
     console.log("movies no authenticate ");

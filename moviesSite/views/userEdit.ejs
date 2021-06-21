@@ -16,21 +16,21 @@
         method="POST">
         <label>Fill In</label> <br><br>
         <div>
-            <label>User Name : </label> 
+            <label>User Name : </label> <br>
             <input type="text" name="uName" value="<%= data?.user?.userName ? data.user.userName : '' %>"
                 onfocus="this.value=''" />
         </div>
         <div>
-            <label>Password: </label>
+            <label>Password: </label><br>
             <input type="text" name="pwd" value="<%= data?.user?.password ? data.user.password : '' %>"
                 onfocus="this.value=''" />
         </div>
         <div>
-            <label>Created Date : </label>
+            <label>Created Date : </label><br>
             <input type="text" name="date" value="<%= data?.user?.createdDate ? data.user.createdDate : '' %>" </div>
             <div>
-                <label>Num Of Transactions : </label> 
-                <input type="text" name="trans" value="<%= data?.user?.numOfTrans ? data.user.numOfTrans : '' %>"
+                <label>Num Of Transactions : </label> <br>
+                <input type="text" name="trans" value="<%= data?.user.numOfTrans ? data.user.numOfTrans : '' %>"
                     onfocus="this.value=''" />
             </div>
 

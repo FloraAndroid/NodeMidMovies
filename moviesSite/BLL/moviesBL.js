@@ -23,27 +23,16 @@ exports.
                 return {
                     "id": x.id, "name": x.name,
                     "language": x.language, "genres": x.genres,
-                    "image": x.image.medium
-                }
+                    "image": x.image.medium,
+                } 
             });
         }
         let allmovies = moviesFromRest;
-        console.log("movies BL all movies rest", allmovies)
+     //   console.log("movies BL all movies rest", allmovies)
         let moviesFromJson = await jsonDal.getNewMovies();
 
         allmovies.push(moviesFromJson.movies)
         return allmovies;
-        // jsonDal.getNewMovies().then(data => {
-        //     console.log("BL movies from json", data.movies)
-
-        //     allmovies.push(data.movies)
-
-        //     return allmovies;
-        // }).catch((err) => {
-        //     console.log("BL error", err)
-
-        //     return allmovies;
-        // })
     }
 
 exports.addMovie = async (obj) => {
@@ -83,13 +72,22 @@ exports.addMovie = async (obj) => {
 
 
 
-exports.searchMovie = async (querySt) => {
+exports.searchMovie = async (queryBody) => {
     let allmovies = await this.getAllMovies()
-    let searchedMovies =allmovies.filter(x=> 
-        x?.name?.toLowerCase().includes("Under".toLowerCase()))    
+
+    var nameS = queryBody?.nameM? queryBody.nameM.toLowerCase() : "";
+    var languageS = queryBody?.languageM ? queryBody.languageM : "";
+    var genreS = queryBody?.genreM ? queryBody.genreM : "";
+    let searchedMovies = allmovies.filter(x => {
+        return (
+            (x?.name?.toLowerCase().includes(nameS)) || (nameS == "") &&
+            (x?.genres?.includes(genres) || genreS == "")&&
+            (x?.languages==languageS || languageS == "")
+        )
+    })
 
 
-    console.log("searchedMovie", searchedMovies);
-    return searched;
+    //console.log("searchedMovie", searchedMovies);
+    return searchedMovies;
 
 }
