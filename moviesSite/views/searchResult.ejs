@@ -10,14 +10,18 @@
 
     <div>
         <table>
+            <tr>
+                <th>Search Movies</th>
+                <th></th>
+                <th>Related Ganeres</th>
+            </tr>
             <% movies.forEach(mov=>{%>
+                
                 <tr>
                     <td>
                         <img style="width: 40px; height: 40px;" src="<%= mov?.image? mov.image: '' %>">
-
                     </td>
                     <td>
-
                         <a class="linkBlack" href="/menu/searchMovies/search/<%= mov.id %>/">
                             <%= mov.name? mov.name: '' %>
                         </a>
@@ -25,9 +29,9 @@
                     </td>
                     <td>
                         <ul>
-                            <% mov.genres.forEach(gen=>{ %>
+                            <% mov.related.forEach(rel=>{ %>
                                 <li>
-                                    <%= gen %>
+                                    <%= rel.name %>
                                 </li>
                                 <% }) %>
                         </ul>

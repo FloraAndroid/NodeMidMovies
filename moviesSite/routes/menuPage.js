@@ -59,14 +59,15 @@ router.post('/addMovies/add', async function (req, res, next) {
 });
 
 router.post('/searchMovies/search',async  function (req, res, next) {
-    console.log("Search Movies Params : " , req.body)
+   console.log("Search Movies Params : " , req.body)
+   
     try {
       let movies=await moviesBL.searchMovie(req.body);
      // console.log("Movies ",  movies);
       res.render('searchResult', { movies });
     }
     catch (err) {
-      console.log("error with movies :" + err);
+    //  console.log("error with movies :" + err);
       res.redirect("/menu")
     }
   

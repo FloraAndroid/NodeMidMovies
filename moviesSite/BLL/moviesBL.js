@@ -24,11 +24,11 @@ exports.
                     "id": x.id, "name": x.name,
                     "language": x.language, "genres": x.genres,
                     "image": x.image.medium,
-                } 
+                }
             });
         }
         let allmovies = moviesFromRest;
-     //   console.log("movies BL all movies rest", allmovies)
+        //   console.log("movies BL all movies rest", allmovies)
         let moviesFromJson = await jsonDal.getNewMovies();
 
         allmovies.push(moviesFromJson.movies)
@@ -60,7 +60,7 @@ exports.addMovie = async (obj) => {
         id = (moviesRest[moviesRest.length - 1].id) + 1
     }
     let genres = obj.genres.split(",")
-    console.log(JSON.stringify(genres))
+    //   console.log(JSON.stringify(genres))
     moviesJson.push({
         "id": id, "name": obj.nameM, "image": "", "language": obj.language,
         "genres": genres
@@ -73,21 +73,43 @@ exports.addMovie = async (obj) => {
 
 
 exports.searchMovie = async (queryBody) => {
-    let allmovies = await this.getAllMovies()
+    let allmovies = await this.getAllMovies();
 
-    var nameS = queryBody?.nameM? queryBody.nameM.toLowerCase() : "";
-    var languageS = queryBody?.languageM ? queryBody.languageM : "";
-    var genreS = queryBody?.genreM ? queryBody.genreM : "";
-    let searchedMovies = allmovies.filter(x => {
-        return (
-            (x?.name?.toLowerCase().includes(nameS)) || (nameS == "") &&
-            (x?.genres?.includes(genres) || genreS == "")&&
-            (x?.languages==languageS || languageS == "")
-        )
+    // console.log("all movies",allmovies);
+    var nameS = queryBody?.nameM ? queryBody.nameM.toLowerCase() : '';
+    var languageS = queryBody?.languageM ? queryBody.languageM : '';
+    var genreS = queryBody?.genreM ? queryBody.genreM : '';
+
+    console.log("params", nameS);
+    console.log("params", languageS);
+    console.log("params", genreS);
+
+
+    let tempMovies = allmovies.filter(x => {
+
+        return ((x.language == languageS || languageS == '') &&
+            (x.name.toLowerCase().includes(nameS) || nameS == '') &&
+            (x.genres?.includes(genreS) || genreS == '')
+
+        );
     })
+    console.log("searchMovies", tempMovies)
 
 
-    //console.log("searchedMovie", searchedMovies);
-    return searchedMovies;
+
+    tempMovies.forEach(sm => {
+        let related = allmovies.filter(mov => {
+            return ((sm.id!=mov.id)&&(
+                mov.genres?.filter(gen=>{
+                    return( sm.genres.includes(gen));
+                })?.length>0)
+              
+        );
+    })
+    sm["related"] = related.slice(0, 7);
+})
+
+    console.log("searchwith related", tempMovies[0].related)
+    return tempMovies;
 
 }

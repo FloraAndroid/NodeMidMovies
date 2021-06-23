@@ -9,7 +9,7 @@ const getNewMovies = function () {
                 reject({ "msg": err.message })
             }
             else {
-                console.log("DAL JSON DATA " , data)
+              //  console.log("DAL JSON DATA " , data)
                 resolve(data)
             }
         });
