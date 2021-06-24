@@ -7,13 +7,16 @@
 
 <body>
     <h3>Welcome To Search </h3><br><br>
+    <div>
+    <a href="/menu/">Back To Menu</a>
 
+    </div>
     <div>
         <table>
             <tr>
-                <th>Search Movies</th>
-                <th></th>
-                <th>Related Ganeres</th>
+                <th>Photos</th>
+                <th>Movies</th>
+                <th>Related Generes</th>
             </tr>
             <% movies.forEach(mov=>{%>
                 
@@ -31,7 +34,9 @@
                         <ul>
                             <% mov.related.forEach(rel=>{ %>
                                 <li>
-                                    <%= rel.name %>
+                                   <a class="linkBlack" href="/menu/searchMovies/search/<%= rel.id %>/">
+                                     <%= rel.name %>
+                                     </a>
                                 </li>
                                 <% }) %>
                         </ul>

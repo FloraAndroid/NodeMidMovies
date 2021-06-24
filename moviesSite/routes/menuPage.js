@@ -42,7 +42,7 @@ router.get('/addMovies', function (req, res, next) {
 router.post('/addMovies/add', async function (req, res, next) {
   if (req.session.authenticated) {
 
-    console.log("add Name movie : " , req.body.nameM)
+    console.log("add Name movie : ", req.body.nameM)
     try {
       let result = await moviesBL.addMovie(req.body)
       console.log("result from controller " + result)
@@ -58,28 +58,38 @@ router.post('/addMovies/add', async function (req, res, next) {
   }
 });
 
-router.post('/searchMovies/search',async  function (req, res, next) {
-   console.log("Search Movies Params : " , req.body)
-   
-    try {
-      let movies=await moviesBL.searchMovie(req.body);
-     // console.log("Movies ",  movies);
-      res.render('searchResult', { movies });
-    }
-    catch (err) {
+router.post('/searchMovies/search', async function (req, res, next) {
+  console.log("Search Movies Params : ", req.body)
+
+  try {
+    let movies = await moviesBL.searchMovie(req.body);
+    // console.log("Movies ",  movies);
+    res.render('searchResult', { movies });
+  }
+  catch (err) {
     //  console.log("error with movies :" + err);
-      res.redirect("/menu")
-    }
-  
+    res.redirect("/menu")
+  }
+
 });
-router.get('/searchMovies/search/:id/',  function (req, res, next) {
-  console.log("Search Movies Params : " , req.params.id)
-  
+
+router.get('/searchMovies/search', function (req, res, next) {
+
+  console.log("back from details")
+  res.redirect("/")
+
+
+});
+router.get('/searchMovies/search/:id/', async function (req, res, next) {
+  console.log("Search Movies Params : ", req.params.id)
+  let mov = await moviesBL.getMovieById(req.params.id);
+  res.render('movieDataPage', { mov })
+
 
 });
 router.get('/searchMovies', async function (req, res, next) {
   if (req.session.authenticated) {
-      res.render('searchInput', { });
+    res.render('searchInput', {});
   }
   else {
     console.log("movies no authenticate ");

@@ -3,6 +3,14 @@ const jsonDal = require('../DAL/moviesJsonDAL');
 const { all, get } = require('../app');
 
 let moviesFromRest = null
+
+exports.getMovieById=async(id)=>{
+    let allmovies = await this.getAllMovies();
+    let movie=allmovies.find(x=> x.id==id)
+    console.log("movie clicked",movie);
+    return movie
+
+}
 exports.getRestMovies = async () => {
     let resp = await restDal.getMovies();
     // moviesFromRest = resp.data;
