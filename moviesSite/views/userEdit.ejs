@@ -27,10 +27,10 @@
         </div>
         <div>
             <label>Created Date : </label><br>
-            <input type="text" name="date" value="<%= data?.user?.createdDate ? data.user.createdDate : '' %>" </div>
+            <input type="date" min="2020-01-01" max="2021-12-31" name="date" value="<%= data?.user?.createdDate ? data.user.createdDate : '' %>" </div>
             <div>
                 <label>Num Of Transactions : </label> <br>
-                <input type="text" name="trans" value="<%= data?.user.numOfTrans ? data.user.numOfTrans : '' %>"
+                <input type="number" min=0 name="trans" value="<%= data?.user?.numOfTrans ? data.user.numOfTrans : '' %>"
                     onfocus="this.value=''" />
             </div>
 

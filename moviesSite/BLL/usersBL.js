@@ -36,15 +36,16 @@ exports.addUSer = async (obj) => {
     let users = resp.users;
     let lastUser = users[users.length - 1]
     console.log(lastUser);
-    let id = lastUser.id + 1
-    let admin = "false"
+    let id = parseInt(lastUser.id,10) + 1
+    let admin = false
     if (obj.admin) {
         admin = true
     }
+   
     users.push({
         "id": id, "userName": obj.uName,"password": obj.pwd,
         "createdDate": obj.date,
-        "numOfTrans": obj.trans,
+        "numOfTrans": parseInt(obj.trans,10),
         "admin": admin
     })
     let result = await usersDAL.updateUsersFile(users)
@@ -60,7 +61,7 @@ exports.updateUser = async (obj, id) => {
     let users = resp.users;
     let index= getIndexOfUser(id,users)
 
-    let admin = "false"
+    let admin = false
     if (obj.admin) {
         admin = true
     }
@@ -68,7 +69,7 @@ exports.updateUser = async (obj, id) => {
         "id": id, "userName": obj.uName,
         "password": obj.pwd,
         "createdDate": obj.date,
-        "numOfTrans": obj.trans,
+        "numOfTrans": parseInt(obj.trans),
         "admin": admin
     }
     let result = await usersDAL.updateUsersFile(users)
@@ -98,7 +99,7 @@ exports.isUserExist = (async (uName, pwd) => {
         let user = users.find(x => x.userName == uName && x.password == pwd)
 
         if (user != null) {
-            result = true
+            return user
         }
         else {
 

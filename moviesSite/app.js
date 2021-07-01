@@ -1,6 +1,8 @@
 var createError = require('http-errors');
 var express = require('express');
-var session=require('express-session')
+var session=require('express-session');
+var back = require('express-back');
+
 
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -12,7 +14,13 @@ var loginRouter=require('./routes/login');
 var menuRouter=require('./routes/menuPage');
 
 var app = express();
-app.use(session({secret:'My secret'}));
+app.use(session({
+  secret: "keyboardcat",
+  name: "mycookie",
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(back());
 app.use(express.static(__dirname + '/public'));
 
 // view engine setup
