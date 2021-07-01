@@ -2,6 +2,8 @@ var createError = require('http-errors');
 var express = require('express');
 var session=require('express-session');
 var back = require('express-back');
+'use strict';
+//var sessionstorage = require('sessionstorage');
 
 
 var path = require('path');

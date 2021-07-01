@@ -1,6 +1,7 @@
 const restDal = require('../DAL/moviesRestDAL');
 const jsonDal = require('../DAL/moviesJsonDAL');
 const { all, get } = require('../app');
+const storage = require('sessionStorage');
 
 let moviesFromRest = null
 
@@ -14,6 +15,7 @@ exports.getMovieById=async(id)=>{
 exports.getRestMovies = async () => {
     let resp = await restDal.getMovies();
     // moviesFromRest = resp.data;
+
     moviesFromRest = resp.data.map(x => {
         return {
             "id": x.id, "name": x.name,
@@ -102,9 +104,6 @@ exports.searchMovie = async (queryBody) => {
         );
     })
     console.log("searchMovies", tempMovies)
-
-
-
     tempMovies.forEach(sm => {
         let related = allmovies.filter(mov => {
             return ((sm.id!=mov.id)&&(

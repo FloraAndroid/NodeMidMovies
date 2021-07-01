@@ -1,5 +1,7 @@
 var express = require('express');
+
 var router = express.Router();
+var storage = require('sessionStorage');
 
 const moviesBL = require('../BLL/moviesBL');
 /* GET users listing. */
@@ -10,6 +12,7 @@ router.get('/', async function (req, res, next) {
 
     try {
       let movies = await moviesBL.getRestMovies()
+      storage.setItem('moviesFromRest',movies)
       console.log("is admin", req.session.user.admin)
       res.render('menuPage', { "isAdmin": req.session.user.admin });
 
@@ -48,10 +51,7 @@ router.post('/addMovies/add', async function (req, res, next) {
   // if (req.session.authenticated) {
   if (checkAllownace(req.session)) {
 
-    //// req.session["authenticated"] = true;
-    //req.session.save
-
-    console.log("add Name movie : ", req.body.nameM)
+  //  console.log("add Name movie : ", req.body.nameM)
     try {
       let result = await moviesBL.addMovie(req.body)
       console.log("result from controller " + result)
@@ -80,38 +80,30 @@ router.post('/searchMovies/search', async function (req, res, next) {
       // console.log("Movies ",  movies);
       req.session["searchParam"] = req.body
       req.session["transaction"] = req.session.transaction + 1
-
+      storage.setItem('movies',movies)
       res.render('searchResult', { movies });
+
     }
     catch (err) {
-      //  console.log("error with movies :" + err);
+       console.log("error with movies :",  err);
       res.redirect("/menu")
     }
 
   } else {
     res.redirect('/transaction/' + req.session.transaction)
-    // res.redirect("/?trans="+req.session.transaction)
   }
 });
 
 router.get('/searchMovies/search', async function (req, res, next) {
-  //  if (req.session.authenticated) {
   if (checkAllownace(req.session)) {
 
     console.log("back from details");
-    //   res.send("hello")
-
-    let movies = await moviesBL.searchMovie(req.session.searchParam);
+ 
+   let movies=storage.getItem('movies');
 
 
    // let movies=req.session.movies;
     res.render('searchResult', { movies });
-
-    //res.redirect('back');
-    //res.redirect('back');
-
-    //  res.prev;
-    //  req.session.redirectTo = '/searchMovies/search';
   }
   else {
     res.redirect('/transaction/' + req.session.transaction)
@@ -119,7 +111,6 @@ router.get('/searchMovies/search', async function (req, res, next) {
 
 });
 router.get('/searchMovies/search/:id/', async function (req, res, next) {
-  // if (req.session.authenticated) {
   if (checkAllownace(req.session)) {
     console.log("Search Movies Params : ", req.params.id)
     let mov = await moviesBL.getMovieById(req.params.id);
@@ -134,7 +125,6 @@ router.get('/searchMovies/search/:id/', async function (req, res, next) {
 
 });
 router.get('/searchMovies', async function (req, res, next) {
-  // if (req.session.authenticated) {
   if (checkAllownace(req.session)) {
 
     res.render('searchInput', {});
@@ -149,8 +139,8 @@ router.get('/searchMovies', async function (req, res, next) {
 
 function checkAllownace(session) {
   let userTrans = Number.isInteger(session.user.numOfTrans) ? session.user.numOfTrans : 0;
-  console.log("num ofTrans of user", userTrans)
-  console.log("num ofTrans of user", session.transaction)
+  //console.log("num ofTrans of user", userTrans)
+  //console.log("num ofTrans of user", session.transaction)
 
   if (session.user.admin && session.authenticated) {
     return true
